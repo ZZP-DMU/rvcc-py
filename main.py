@@ -93,6 +93,13 @@ def tokenize(argv=str):
     linklist.append(tok_kind.TK_EOF,'eof',count)
     return linklist
 
+def verroAt(Loc,estr,errm):
+    sys.stderr.write(estr+'\n')
+    sys.stderr.write(Loc*'-')
+    sys.stderr.write('^')
+    sys.stderr.write(errm)
+
+
 
 lin = tokenize(argv)
 
@@ -105,10 +112,16 @@ while(Head.Kind != tok_kind.TK_EOF):
     Head = Head.Next
     if Head.Val == '+':
         Head = Head.Next
-        print(" addi a0, a0, {}\n".format(Head.Val))
+        if(Head.Kind == tok_kind.TK_NUM):
+            print(" addi a0, a0, {}\n".format(Head.Val))
+        else:
+            verroAt(Head.Loc,argv,"  error:expect a number\n\n")
     if Head.Val == '-':
         Head = Head.Next
-        print(" addi a0, a0, -{}\n".format(Head.Val))
+        if(Head.Kind == tok_kind.TK_NUM):
+            print(" addi a0, a0, -{}\n".format(Head.Val))
+        else:
+            verroAt(Head.Loc,argv,"  error:expect a number\n\n")
 
    
 
