@@ -26,5 +26,5 @@ fi
 
 }
 
-assert 122 123-10+9
+assert 1 '123 -10 +9-121'
 echo ok
