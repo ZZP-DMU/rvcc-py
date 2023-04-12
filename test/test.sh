@@ -6,12 +6,14 @@ assert() {
     expected="$1"
     input="$2"
 
+rm ./playground/*
+
 ./main.py "$input" >./playground/tmp.s ||exit
 
 
-riscv64-unknown-linux-gnu-gcc -static -o ./playground/tmp tmp.s
+riscv64-unknown-linux-gnu-gcc -static -o ./playground/tmp ./playground/tmp.s
 
-$RISCV/bin/qemu-riscv64 -L $RISCV/sysroot ./tmp
+$RISCV/bin/qemu-riscv64 -L $RISCV/sysroot ./playground/tmp
 
 actual="$?"
 
@@ -24,5 +26,5 @@ fi
 
 }
 
-assert 42 41
+assert 122 123-10+9
 echo ok
