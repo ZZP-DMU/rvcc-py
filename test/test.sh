@@ -11,7 +11,7 @@ assert() {
 
     riscv64-unknown-linux-gnu-gcc -static -o ./playground/tmp ./playground/tmp.s  ||exit
 
-    $RISCV/bin/qemu-riscv64 -L $RISCV/sysroot ./playground/tmp ||exit
+    $RISCV/bin/qemu-riscv64 -L $RISCV/sysroot ./playground/tmp 
 
     actual="$?"
 
@@ -21,7 +21,10 @@ assert() {
         echo "$input => $expected, but got $actual"
         exit 1
     fi
+
+
 }
 
-assert 1 '123 -10 +9 --121'
+assert "-13" "12- 9*3+ (8-4)/2"
+
 echo ok
